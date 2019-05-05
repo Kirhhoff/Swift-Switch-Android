@@ -8,6 +8,8 @@ import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 
 import com.example.win.easy.domain.Mouse;
 import com.example.win.easy.domain.MouseDao;
+import com.example.win.easy.domain.MouseJoinParameter;
+import com.example.win.easy.domain.MouseJoinParameterDao;
 import com.example.win.easy.domain.ParameterDAO;
 import com.example.win.easy.domain.ThisDatabase;
 import com.example.win.easy.domain.Parameter;
@@ -26,10 +28,13 @@ public class SimpleDatabaseTest {
     private ThisDatabase thisDatabase;
     private MouseDao mouseDao;
     private ParameterDAO parameterDAO;
+    private MouseJoinParameterDao mouseJoinParameterDao;
     private Mouse mouse1=new Mouse();
     private Mouse mouse2=new Mouse();
     private Parameter parameter1=new Parameter();
     private Parameter parameter2=new Parameter();
+    private MouseJoinParameter mouseJoinParameter1=new MouseJoinParameter();
+    private MouseJoinParameter mouseJoinParameter2=new MouseJoinParameter();
 
     @Before
     public void createDb(){
@@ -37,6 +42,7 @@ public class SimpleDatabaseTest {
         thisDatabase = Room.inMemoryDatabaseBuilder(context, ThisDatabase.class).build();
         mouseDao= thisDatabase.mouseDao();
         parameterDAO= thisDatabase.parameterDAO();
+        mouseJoinParameterDao=thisDatabase.mouseJoinParameterDao();
     }
 
     @After
@@ -53,17 +59,31 @@ public class SimpleDatabaseTest {
         Long pid1=parameterDAO.insert(parameter1);
         Long pid2=parameterDAO.insert(parameter2);
 
-        mouse1.setParamId(pid1);
-        mouse2.setParamId(pid2);
-
         Long mid1=mouseDao.insert(mouse1);
         Long mid2=mouseDao.insert(mouse2);
 
+        mouseJoinParameter1.setMouseId(mid1);
+        mouseJoinParameter1.setParameterId(pid1);
+        mouseJoinParameter2.setMouseId(mid2);
+        mouseJoinParameter2.setParameterId(pid2);
+
+        mouseJoinParameterDao.insert(mouseJoinParameter1);
+        mouseJoinParameterDao.insert(mouseJoinParameter2);
+
         List<Mouse> mouseList=mouseDao.findAllMouses();
         for (Mouse mouse:mouseList){
-            Parameter parameter=parameterDAO.findById(mouse.getParamId());
-            System.out.println(mouse+" :: "+parameter);
+            MouseJoinParameter mouseJoinParameter=mouseJoinParameterDao.findByMouseId(mouse.getId());
+            Parameter parameter=parameterDAO.findById(mouseJoinParameter.getParameterId());
+            System.out.println(mouse+" :: "+mouseJoinParameter+" :: "+parameter);
         }
+
+        List<Parameter> parameterList=parameterDAO.findAllParameters();
+        for (Parameter parameter:parameterList){
+            MouseJoinParameter mouseJoinParameter=mouseJoinParameterDao.findByParameterId(parameter.getId());
+            Mouse mouse=mouseDao.findById(mouseJoinParameter.getMouseId());
+            System.out.println(parameter+" :: "+mouseJoinParameter+" :: "+mouse);
+        }
+
     }
 
     private void createParameter(){

@@ -13,6 +13,9 @@ public interface MouseDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     long insert(Mouse mouse);
 
+    @Query("SELECT * FROM mmouse WHERE id=:mouseId")
+    Mouse findById(long mouseId);
+
     @Query("SELECT * FROM mmouse")
     List<Mouse> findAllMouses();
 
