@@ -4,31 +4,40 @@ package com.example.win.easy.song;
  * 歌曲的各种信息及其set和get函数
  */
 
+import androidx.room.Entity;
+import androidx.room.PrimaryKey;
+
 import com.example.win.easy.feature.InternalInformation;
 
 import java.io.File;
 import java.util.List;
 
+import lombok.AllArgsConstructor;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 
 @Data
+@Entity
+@AllArgsConstructor
+@NoArgsConstructor
 public class Song {
 
-    private String name;
+    @PrimaryKey(autoGenerate = true)
+    public int id;
 
-    private String author;
+    public String name;
 
-    private String abpath;
+    public String author;
 
-    private List<Character> sequence;
+    public String abpath;
 
-    DataSource source;
+    public List<Character> sequence;
 
-    InternalInformation internalInformation;
+    public DataSource source;
 
-    private File absolutePath;
+    public InternalInformation internalInformation;
 
-    public Song(){}
+    public File absolutePath;
 
     public Song(String name){
         this.name=name;

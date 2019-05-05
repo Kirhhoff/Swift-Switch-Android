@@ -1,22 +1,23 @@
-package com.example.win.easy.feature;
+package com.example.win.easy.domain;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
-
-import java.util.Date;
 
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+@Entity(tableName = "param")
 @Data
-@Entity
 @AllArgsConstructor
 @NoArgsConstructor
-public class InternalInformation {
+public class Parameter {
 
-    @PrimaryKey
-    int songId;
+    @PrimaryKey(autoGenerate = true)
+    long id;
 
-    public Date recentPlayedDate;//最近一次被播放时间
+    public int weight;
+
+    public int size;
+
 }
