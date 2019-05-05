@@ -6,13 +6,15 @@ import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 
+import com.example.win.easy.domain.CompleteMouse;
+import com.example.win.easy.domain.CompleteMouseDao;
 import com.example.win.easy.domain.Mouse;
 import com.example.win.easy.domain.MouseDao;
 import com.example.win.easy.domain.MouseJoinParameter;
 import com.example.win.easy.domain.MouseJoinParameterDao;
+import com.example.win.easy.domain.Parameter;
 import com.example.win.easy.domain.ParameterDAO;
 import com.example.win.easy.domain.ThisDatabase;
-import com.example.win.easy.domain.Parameter;
 import com.example.win.easy.song.DataSource;
 
 import org.junit.After;
@@ -29,6 +31,7 @@ public class SimpleDatabaseTest {
     private MouseDao mouseDao;
     private ParameterDAO parameterDAO;
     private MouseJoinParameterDao mouseJoinParameterDao;
+    private CompleteMouseDao completeMouseDao;
     private Mouse mouse1=new Mouse();
     private Mouse mouse2=new Mouse();
     private Parameter parameter1=new Parameter();
@@ -43,6 +46,7 @@ public class SimpleDatabaseTest {
         mouseDao= thisDatabase.mouseDao();
         parameterDAO= thisDatabase.parameterDAO();
         mouseJoinParameterDao=thisDatabase.mouseJoinParameterDao();
+        completeMouseDao=thisDatabase.completeMouseDao();
     }
 
     @After
@@ -74,7 +78,8 @@ public class SimpleDatabaseTest {
         for (Mouse mouse:mouseList){
             MouseJoinParameter mouseJoinParameter=mouseJoinParameterDao.findByMouseId(mouse.getId());
             Parameter parameter=parameterDAO.findById(mouseJoinParameter.getParameterId());
-            System.out.println(mouse+" :: "+mouseJoinParameter+" :: "+parameter);
+            CompleteMouse completeMouse=completeMouseDao.findById(mouse.getId());
+            System.out.println(mouse+" :: "+mouseJoinParameter+" :: "+parameter+" :: "+completeMouse);
         }
 
         List<Parameter> parameterList=parameterDAO.findAllParameters();
