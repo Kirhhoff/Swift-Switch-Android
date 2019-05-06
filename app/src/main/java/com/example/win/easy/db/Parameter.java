@@ -1,4 +1,4 @@
-package com.example.win.easy.domain;
+package com.example.win.easy.db;
 
 import androidx.room.Entity;
 import androidx.room.PrimaryKey;
@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 public class Parameter {
 
     @PrimaryKey(autoGenerate = true)
-    long id;
+    public long id;
 
     public int weight;
 

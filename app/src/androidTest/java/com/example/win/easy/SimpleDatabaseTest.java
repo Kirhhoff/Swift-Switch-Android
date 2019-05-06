@@ -6,11 +6,15 @@ import androidx.room.Room;
 import androidx.test.core.app.ApplicationProvider;
 import androidx.test.internal.runner.junit4.AndroidJUnit4ClassRunner;
 
-import com.example.win.easy.domain.Mouse;
-import com.example.win.easy.domain.MouseDao;
-import com.example.win.easy.domain.ParameterDAO;
-import com.example.win.easy.domain.ThisDatabase;
-import com.example.win.easy.domain.Parameter;
+import com.example.win.easy.db.PlayerJoinMouse;
+import com.example.win.easy.db.PlayerJoinMouseDao;
+import com.example.win.easy.db.dao.PlayerPojoDao;
+import com.example.win.easy.db.pojo.MousePojo;
+import com.example.win.easy.db.dao.MousePojoDao;
+import com.example.win.easy.db.dao.ParameterDAO;
+import com.example.win.easy.db.ThisDatabase;
+import com.example.win.easy.db.Parameter;
+import com.example.win.easy.db.pojo.PlayerPojo;
 import com.example.win.easy.song.DataSource;
 
 import org.junit.After;
@@ -24,19 +28,27 @@ import java.util.List;
 @RunWith(AndroidJUnit4ClassRunner.class)
 public class SimpleDatabaseTest {
     private ThisDatabase thisDatabase;
-    private MouseDao mouseDao;
+    private MousePojoDao mousePojoDao;
+    private PlayerPojoDao playerPojoDao;
     private ParameterDAO parameterDAO;
-    private Mouse mouse1=new Mouse();
-    private Mouse mouse2=new Mouse();
+    private PlayerJoinMouseDao playerJoinMouseDao;
+    private MousePojo mousePojo1 =new MousePojo();
+    private MousePojo mousePojo2 =new MousePojo();
     private Parameter parameter1=new Parameter();
     private Parameter parameter2=new Parameter();
+    private PlayerPojo playerPojo1=new PlayerPojo();
+    private PlayerPojo playerPojo2=new PlayerPojo();
+    private List<PlayerJoinMouse> joinList=new ArrayList<>();
+
 
     @Before
     public void createDb(){
         Context context= ApplicationProvider.getApplicationContext();
         thisDatabase = Room.inMemoryDatabaseBuilder(context, ThisDatabase.class).build();
-        mouseDao= thisDatabase.mouseDao();
+        mousePojoDao = thisDatabase.mousePojoDao();
         parameterDAO= thisDatabase.parameterDAO();
+        playerPojoDao=thisDatabase.playerPojoDao();
+        playerJoinMouseDao=thisDatabase.playerJoinMouseDao();
     }
 
     @After
@@ -48,22 +60,39 @@ public class SimpleDatabaseTest {
     public void testReadWrite(){
 
         createParameter();
-        createMouse();
+        createMousePojo();
+        createPlayerPojo();
 
         Long pid1=parameterDAO.insert(parameter1);
         Long pid2=parameterDAO.insert(parameter2);
 
-        mouse1.setParamId(pid1);
-        mouse2.setParamId(pid2);
+        mousePojo1.setParamId(pid1);
+        mousePojo2.setParamId(pid2);
 
-        Long mid1=mouseDao.insert(mouse1);
-        Long mid2=mouseDao.insert(mouse2);
+        Long mid1= mousePojoDao.insert(mousePojo1);
+        Long mid2= mousePojoDao.insert(mousePojo2);
 
-        List<Mouse> mouseList=mouseDao.findAllMouses();
-        for (Mouse mouse:mouseList){
-            Parameter parameter=parameterDAO.findById(mouse.getParamId());
-            System.out.println(mouse+" :: "+parameter);
-        }
+        Long plid1=playerPojoDao.insert(playerPojo1);
+        Long plid2=playerPojoDao.insert(playerPojo2);
+
+        joinList.add(new PlayerJoinMouse(plid1,mid1));
+        joinList.add(new PlayerJoinMouse(plid1,mid2));
+        joinList.add(new PlayerJoinMouse(plid2,mid1));
+        joinList.add(new PlayerJoinMouse(plid2,mid2));
+
+        for(PlayerJoinMouse playerJoinMouse:joinList)
+            playerJoinMouseDao.insert(playerJoinMouse);
+
+//        List<MousePojo> mousePojoList = mousePojoDao.findAllMouses();
+//        for (MousePojo mousePojo : mousePojoList){
+//            Parameter parameter=parameterDAO.findById(mousePojo.getParamId());
+//            System.out.println(mousePojo +" :: "+parameter);
+//        }
+        System.out.println(playerJoinMouseDao.findAllMousePojosForPlayerById(plid1));
+        System.out.println(playerJoinMouseDao.findAllMousePojosForPlayerById(plid2));
+        System.out.println(playerJoinMouseDao.findAllPlayerPojosForMouseById(mid1));
+        System.out.println(playerJoinMouseDao.findAllPlayerPojosForMouseById(mid2));
+
     }
 
     private void createParameter(){
@@ -73,16 +102,16 @@ public class SimpleDatabaseTest {
         parameter2.setWeight(233333);
     }
 
-    private void createMouse(){
+    private void createMousePojo(){
         List<Character> sequence1=new ArrayList<>();
         sequence1.add('G');
         sequence1.add('5');
         sequence1.add('0');
         sequence1.add('2');
-        mouse1.setBand("罗技");
-        mouse1.setVersion(502);
-        mouse1.setSequence(sequence1);
-        mouse1.setDataSource(DataSource.Local);
+        mousePojo1.setBand("罗技");
+        mousePojo1.setVersion(502);
+        mousePojo1.setSequence(sequence1);
+        mousePojo1.setDataSource(DataSource.Local);
 
 
         List<Character> sequence2=new ArrayList<>();
@@ -90,10 +119,16 @@ public class SimpleDatabaseTest {
         sequence2.add('5');
         sequence2.add('9');
         sequence2.add('0');
-        mouse2.setBand("Logitech");
-        mouse2.setVersion(590);
-        mouse2.setSequence(null);
-        mouse2.setDataSource(null);
+        mousePojo2.setBand("Logitech");
+        mousePojo2.setVersion(590);
+        mousePojo2.setSequence(null);
+        mousePojo2.setDataSource(null);
     }
+
+    private void createPlayerPojo(){
+        playerPojo1.setName("Gali");
+        playerPojo2.setName("Mag");
+    }
+
 
 }

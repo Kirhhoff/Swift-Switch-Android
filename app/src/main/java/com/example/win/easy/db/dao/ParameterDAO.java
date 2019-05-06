@@ -1,8 +1,10 @@
-package com.example.win.easy.domain;
+package com.example.win.easy.db.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+
+import com.example.win.easy.db.Parameter;
 
 import static androidx.room.OnConflictStrategy.REPLACE;
 

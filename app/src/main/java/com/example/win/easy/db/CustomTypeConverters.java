@@ -1,4 +1,4 @@
-package com.example.win.easy.domain;
+package com.example.win.easy.db;
 
 import androidx.room.TypeConverter;
 
