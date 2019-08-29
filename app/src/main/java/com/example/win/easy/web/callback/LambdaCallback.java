@@ -1,4 +1,4 @@
-package com.example.win.easy.repository.web.callback;
+package com.example.win.easy.web.callback;
 
 import androidx.annotation.NonNull;
 

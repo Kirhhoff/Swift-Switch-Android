@@ -10,8 +10,8 @@ public class NameResolverTest {
 
 //    @Test
 //    public void test(){
-//        String root=DownloadFilenameResolver.root();
-//        String tempSuffix=DownloadFilenameResolver.tempSuffix();
+//        String root=NameService.root();
+//        String tempSuffix=NameService.tempSuffix();
 //        Log.d("Root directory",root);
 //        Log.d("Temp suffix",tempSuffix);
 //        SongDTO songDTO = SongDTO.builder()
@@ -26,10 +26,10 @@ public class NameResolverTest {
 //                .remoteId("4567890")
 //                .build();
 //        String filenameDue=root+"/123456/song/陈奕迅 - 烟味.mp3";
-//        assertEquals(filenameDue,DownloadFilenameResolver.finishSongFilePath(songDTO));
-//        assertEquals(filenameDue+tempSuffix,DownloadFilenameResolver.tempSongFilePath(songDTO));
-//        Log.d("Finish name",DownloadFilenameResolver.finishSongFilePath(songDTO));
-//        Log.d("Downloading name",DownloadFilenameResolver.tempSongFilePath(songDTO));
+//        assertEquals(filenameDue,NameService.finishSongFilePath(songDTO));
+//        assertEquals(filenameDue+tempSuffix,NameService.tempSongFilePath(songDTO));
+//        Log.d("Finish name",NameService.finishSongFilePath(songDTO));
+//        Log.d("Downloading name",NameService.tempSongFilePath(songDTO));
 //    }
 
 }

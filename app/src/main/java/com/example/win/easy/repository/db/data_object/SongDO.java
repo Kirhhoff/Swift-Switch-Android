@@ -23,48 +23,58 @@ public class SongDO {
      * 自动生成的歌曲id
      */
     @PrimaryKey(autoGenerate = true)
-    public long id;
+    private long id;
 
     /**
      * 歌曲名字，用于展示给用户
      * 如“陈奕迅 - 烟味”
      */
-    public String name;
+    private String name;
 
     /**
      * 歌曲作者
      */
-    public String author;
+    private String author;
 
     /**
      * 歌曲的识别序列
      */
-    public List<Character> sequence;
+    private List<Character> sequence;
 
     /**
      * 歌曲来源
      * @see DataSource
      */
-    public DataSource source;
+    private DataSource source;
+
+    /**
+     * 歌曲网路url
+     */
+    private String songUrl;
+
+    /**
+     * 歌曲头像网路url
+     */
+    private String avatarUrl;
 
     /**
      * 歌曲的绝对路径
      */
-    public String songPath;
+    private String songPath;
 
     /**
      * 歌曲图片的绝对路径
      */
-    public String avatarPath;
+    private String avatarPath;
 
     /**
      * 网络歌曲的用户id
      */
-    public String uid;
+    private String uid;
 
     /**
      * 网络歌曲的id
      */
-    public String remoteId;
+    private String remoteId;
 
 }

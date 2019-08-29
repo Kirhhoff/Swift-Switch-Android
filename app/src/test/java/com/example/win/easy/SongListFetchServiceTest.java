@@ -1,11 +1,11 @@
 package com.example.win.easy;
 
-import com.example.win.easy.repository.web.callback.OnReadyFunc;
-import com.example.win.easy.repository.web.dto.SongListDTO;
-import com.example.win.easy.repository.web.network.AllSongListNetworkFetchService;
-import com.example.win.easy.repository.web.network.NetworkFetchService;
-import com.example.win.easy.repository.web.request.BackendRequestService;
-import com.example.win.easy.repository.web.service.LoginService;
+import com.example.win.easy.web.callback.OnReadyFunc;
+import com.example.win.easy.web.dto.SongListDTO;
+import com.example.win.easy.web.network.AllSongListNetworkFetchService;
+import com.example.win.easy.web.network.NetworkFetchService;
+import com.example.win.easy.web.request.BackendRequestService;
+import com.example.win.easy.web.service.LoginService;
 
 import org.junit.Before;
 import org.junit.Test;

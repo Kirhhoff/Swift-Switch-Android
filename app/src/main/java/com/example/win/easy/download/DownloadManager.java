@@ -1,4 +1,4 @@
-package com.example.win.easy.repository.web.download;
+package com.example.win.easy.download;
 
 import android.os.Handler;
 import android.os.Looper;

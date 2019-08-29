@@ -67,6 +67,17 @@ dependencies {
     //some android test TestRule support
     testImplementation group: 'androidx.arch.core', name: 'core-testing', version: '2.1.0-rc01'
 
+
+    annotationProcessor "org.projectlombok:lombok:1.16.16"
+    def room_version = "2.1.0-alpha07"
+
+    implementation "androidx.room:room-runtime:$room_version"
+    annotationProcessor "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
+
+    // Test helpers
+    testImplementation "androidx.room:room-testing:$room_version"
+
+
     // https://mvnrepository.com/artifact/com.google.dagger/dagger
     implementation group: 'com.google.dagger', name: 'dagger', version: '2.21'
 
@@ -131,13 +142,6 @@ dependencies {
     // https://mvnrepository.com/artifact/androidx.viewpager/viewpager
     implementation group: 'androidx.viewpager', name: 'viewpager', version: '1.0.0'
 
-    def room_version = "2.1.0-alpha07"
-
-    implementation "androidx.room:room-runtime:$room_version"
-    annotationProcessor "androidx.room:room-compiler:$room_version" // For Kotlin use kapt instead of annotationProcessor
-
-    // Test helpers
-    testImplementation "androidx.room:room-testing:$room_version"
 
     implementation 'com.squareup.retrofit2:retrofit:2.5.0'
 
@@ -152,5 +156,6 @@ dependencies {
     // https://mvnrepository.com/artifact/com.jakewharton/butterknife-compiler
     annotationProcessor group: 'com.jakewharton', name: 'butterknife-compiler', version: '10.1.0'
     implementation 'androidx.lifecycle:lifecycle-viewmodel:2.0.0'
+
 
 }

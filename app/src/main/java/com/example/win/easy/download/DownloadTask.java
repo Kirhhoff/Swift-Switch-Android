@@ -1,4 +1,4 @@
-package com.example.win.easy.repository.task;
+package com.example.win.easy.download;
 
 import java.io.BufferedInputStream;
 import java.io.File;

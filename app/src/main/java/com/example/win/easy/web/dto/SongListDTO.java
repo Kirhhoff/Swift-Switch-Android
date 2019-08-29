@@ -1,4 +1,4 @@
-package com.example.win.easy.repository.web.dto;
+package com.example.win.easy.web.dto;
 
 import com.example.win.easy.enumeration.DataSource;
 import com.google.gson.internal.LinkedTreeMap;

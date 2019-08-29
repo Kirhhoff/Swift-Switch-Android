@@ -43,11 +43,11 @@ public class SongXSongListDO {
     /**
      * ManyToMany关系的Song的id
      */
-    public long songId;
+    private long songId;
 
     /**
      * ManyToMany关系的SongList的id
      */
-    public long songListId;
+    private long songListId;
 
 }

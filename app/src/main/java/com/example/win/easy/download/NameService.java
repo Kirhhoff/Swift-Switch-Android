@@ -1,19 +1,19 @@
-package com.example.win.easy.repository.web.download;
+package com.example.win.easy.download;
 
-import com.example.win.easy.repository.web.dto.SongDTO;
+import com.example.win.easy.web.dto.SongDTO;
 
 import javax.inject.Inject;
 import javax.inject.Named;
 import javax.inject.Singleton;
 
 @Singleton
-public class DownloadFilenameResolver {
+public class NameService {
 
     private final String rootDir;
     private final String suffixOfTemp;
 
     @Inject
-    public DownloadFilenameResolver(
+    public NameService(
             @Named("downloadRootDir") String downloadRootDir,
             @Named("suffixOfTempFile") String suffixOfTempFile){
         this.rootDir=downloadRootDir;
