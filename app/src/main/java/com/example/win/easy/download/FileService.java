@@ -4,19 +4,19 @@ import com.example.win.easy.repository.db.data_object.SongDO;
 import com.example.win.easy.repository.db.data_object.SongListDO;
 
 import java.io.File;
-import java.nio.file.FileAlreadyExistsException;
 
 public class FileService {
 
-    public File avatar(SongDO songDO)throws FileAlreadyExistsException {
+
+    public File avatar(SongDO songDO) {
         return null;
     }
 
-    public File avatar(SongListDO songListDO)throws FileAlreadyExistsException{
+    public File avatar(SongListDO songListDO) {
         return null;
     }
 
-    public File file(SongDO songDO)throws FileAlreadyExistsException{
+    public File file(SongDO songDO) {
         return null;
     }
 }
