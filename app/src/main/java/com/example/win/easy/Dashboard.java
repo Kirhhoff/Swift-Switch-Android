@@ -18,6 +18,7 @@ import com.example.win.easy.repository.db.data_object.SongListDO;
 import com.example.win.easy.repository.db.data_object.SongXSongListDO;
 import com.example.win.easy.tool.SongList;
 import com.example.win.easy.value_object.SongVO;
+import com.example.win.easy.view.OnClickFunc;
 import com.qmuiteam.qmui.layout.QMUILinearLayout;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
@@ -30,6 +31,8 @@ import butterknife.BindView;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
+
+import static androidx.test.InstrumentationRegistry.getContext;
 
 public class Dashboard extends QMUILinearLayout  {
 
@@ -390,16 +393,46 @@ class GroupListViewAsPagePagerAdapter extends PagerAdapter {
 
     private List<QMUIGroupListView> pages=new ArrayList<>();
 
-    public void setPages(List<List<SongVO>> songListInPages){
+    public void setPages(List<List<SongVO>> songListInPages,OnClickFunc<SongVO> songOnClickFunc){
         pages.clear();
         for (List<SongVO> songsInAPage:songListInPages)
-            pages.add(toPage(songsInAPage));
+            pages.add(toPage(songsInAPage,songOnClickFunc));
         notifyDataSetChanged();
     }
 
-    private QMUIGroupListView toPage(List<SongVO> songsInPage){
-
+    private QMUIGroupListView toPage(List<SongVO> songsInPage,OnClickFunc<SongVO> songOnClickFunc){
+        //用于返回的GroupListView
+        QMUIGroupListView page=new QMUIGroupListView(getContext());
+        setItemsIn(page,songsInPage,songOnClickFunc);
+        return page;
     }
+
+    private void setItemsIn(QMUIGroupListView page,List<SongVO> songsInPage,OnClickFunc<SongVO> songOnClickFunc){
+        QMUIGroupListView.Section section=QMUIGroupListView.newSection(getContext());
+
+        //为这个歌单每一首歌构建一个Item，并把它们放入同一个Section中
+        for(SongVO song : songsInPage){
+            //构建Item
+            QMUICommonListItemView songItem=item(song,page);
+            View.OnClickListener onClickListener=v-> songOnClickFunc.onclick(song,songItem);
+            //将Item放入Section中
+            section.addItemView(songItem,onClickListener);
+        }
+
+        //将这个Section放入GroupListView中（每个GroupListView只设置一个Section，虽然实际上允许放多个Section）
+        section.addTo(page);
+    }
+
+    private QMUICommonListItemView item(SongVO song,QMUIGroupListView page){
+        return page.createItemView(
+                null,
+                song.getName(),
+                null,
+                QMUICommonListItemView.HORIZONTAL,
+                QMUICommonListItemView.ACCESSORY_TYPE_NONE
+        );
+    }
+
     @Override
     public int getCount() {
         return pages.size();
