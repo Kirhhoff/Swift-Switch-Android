@@ -17,6 +17,7 @@ import com.example.win.easy.repository.db.data_object.SongDO;
 import com.example.win.easy.repository.db.data_object.SongListDO;
 import com.example.win.easy.repository.db.data_object.SongXSongListDO;
 import com.example.win.easy.tool.SongList;
+import com.example.win.easy.value_object.SongVO;
 import com.qmuiteam.qmui.layout.QMUILinearLayout;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 import com.qmuiteam.qmui.widget.grouplist.QMUICommonListItemView;
@@ -25,6 +26,7 @@ import com.qmuiteam.qmui.widget.grouplist.QMUIGroupListView;
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.experimental.Accessors;
@@ -322,7 +324,7 @@ public class Dashboard extends QMUILinearLayout  {
         SwitchSongList//切换歌单
     }
 
-    private class GroupListViewAsPagePagerAdapter extends PagerAdapter {
+    class GroupListViewAsPagePagerAdapter extends PagerAdapter {
 
         @Override
         public int getCount() {
@@ -362,6 +364,78 @@ public class Dashboard extends QMUILinearLayout  {
             return POSITION_NONE;
         }
 
+    }
+
+}
+
+class SearchBoard{
+
+    void search(List<Character> sequence){
+
+    }
+
+}
+
+class SwitchTab extends QMUILinearLayout{
+    @BindView(R.id.tab_segment) QMUITabSegment tabSegment;
+    @BindView(R.id.view_pager) ViewPager viewPager;
+    private PagerAdapter pagerAdapter=new GroupListViewAsPagePagerAdapter();
+
+    public SwitchTab(Context context) {
+        super(context);
+
+    }
+}
+class GroupListViewAsPagePagerAdapter extends PagerAdapter {
+
+    private List<QMUIGroupListView> pages=new ArrayList<>();
+
+    public void setPages(List<List<SongVO>> songListInPages){
+        pages.clear();
+        for (List<SongVO> songsInAPage:songListInPages)
+            pages.add(toPage(songsInAPage));
+        notifyDataSetChanged();
+    }
+
+    private QMUIGroupListView toPage(List<SongVO> songsInPage){
+
+    }
+    @Override
+    public int getCount() {
+        return pages.size();
+    }
+
+    @Override
+    public boolean isViewFromObject(@NonNull View view, @NonNull Object object) {
+        return view==object;
+    }
+
+    @NonNull
+    @Override
+    public Object instantiateItem(@NonNull ViewGroup container, int position) {
+        //获取相应视图
+        View view=pages.get(position);
+
+        //构造视图参数
+        ViewGroup.LayoutParams params = new ViewGroup.LayoutParams(
+                ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+
+        //向容器中添加视图
+        container.addView(view,params);
+
+        return view;
+    }
+
+    @Override
+    public void destroyItem(@NonNull ViewGroup container, int position, @NonNull Object object) {
+        //从容器中移除视图
+        container.removeView((View) object);
+    }
+
+    @Override
+    public int getItemPosition(@NonNull Object object) {
+        //强制每次刷新视图
+        return POSITION_NONE;
     }
 
 }
