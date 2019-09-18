@@ -1,7 +1,7 @@
 package com.example.win.easy.listener;
 
 import com.example.win.easy.display.interfaces.DisplayService;
-import com.example.win.easy.tool.SongList;
+import com.example.win.easy.tool.SongListWithSongs;
 import com.qmuiteam.qmui.widget.QMUITabSegment;
 
 import java.util.List;
@@ -12,7 +12,7 @@ import lombok.Builder;
 public class OnTabSelectedListenerForSwitchingSongList implements QMUITabSegment.OnTabSelectedListener {
 
     private DisplayService displayService;
-    private List<SongList> appearanceLists;
+    private List<SongListWithSongs> appearanceLists;
 
     @Override
     public void onTabSelected(int index) {

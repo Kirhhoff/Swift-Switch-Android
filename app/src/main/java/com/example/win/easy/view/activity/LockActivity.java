@@ -28,7 +28,7 @@ import com.example.win.easy.recognization.interfaces.RecognitionProxy;
 import com.example.win.easy.repository.db.data_object.SongDO;
 import com.example.win.easy.repository.db.data_object.SongListDO;
 import com.example.win.easy.repository.db.data_object.SongXSongListDO;
-import com.example.win.easy.tool.SongList;
+import com.example.win.easy.tool.SongListWithSongs;
 import com.example.win.easy.tool.SongListTool;
 import com.example.win.easy.view.activity.interfaces.SearchingView;
 import com.example.win.easy.view.activity.interfaces.SongListView;
@@ -104,7 +104,7 @@ public class LockActivity extends AppCompatActivity implements SongListView, Sea
 
 
     @Override
-    public void updateToSwitchingSongList(List<SongList> appearanceLists) {
+    public void updateToSwitchingSongList(List<SongListWithSongs> appearanceLists) {
         //设置dashBoard
         dashboard.setup(appearanceLists, Dashboard.DashboardType.SwitchSongList);
         //更新播放器效果
@@ -114,7 +114,7 @@ public class LockActivity extends AppCompatActivity implements SongListView, Sea
     @Override
     public void updateToSelectingSong(List<Integer> sortedIndices) {
         //获得按来源得到的结果列表
-        List<SongList> candidates = SongListTool.generateTempList(sortedIndices,allSongs.getValue());
+        List<SongListWithSongs> candidates = SongListTool.generateTempList(sortedIndices,allSongs.getValue());
         //设置dashBoard
         dashboard.setup(candidates, Dashboard.DashboardType.SelectingSong);
     }

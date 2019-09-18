@@ -1,6 +1,6 @@
 package com.example.win.easy.view.activity.interfaces;
 
-import com.example.win.easy.tool.SongList;
+import com.example.win.easy.tool.SongListWithSongs;
 
 import java.util.List;
 
@@ -13,6 +13,6 @@ public interface SongListView {
      * 将展示内容由先前的搜索结果变为选择的歌曲所在的所有歌单，替换展示内容的同时更新屏幕监听
      * @param appearanceLists 选择的歌曲所在的所有歌单
      */
-    void updateToSwitchingSongList(List<SongList> appearanceLists);
+    void updateToSwitchingSongList(List<SongListWithSongs> appearanceLists);
 
 }

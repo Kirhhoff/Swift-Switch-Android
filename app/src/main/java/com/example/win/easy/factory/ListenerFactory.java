@@ -1,6 +1,7 @@
 package com.example.win.easy.factory;
 
 import com.example.win.easy.display.interfaces.DisplayService;
+import com.example.win.easy.tool.SongListWithSongs;
 import com.example.win.easy.view.activity.interfaces.SongListView;
 import com.example.win.easy.dagger.scope.DashboardScope;
 import com.example.win.easy.listener.OnClickListenerForSelectingSong;
@@ -10,7 +11,6 @@ import com.example.win.easy.listener.OnTabSelectedListenerForSwitchingSongList;
 import com.example.win.easy.repository.db.data_object.SongDO;
 import com.example.win.easy.repository.db.data_object.SongListDO;
 import com.example.win.easy.repository.db.data_object.SongXSongListDO;
-import com.example.win.easy.tool.SongList;
 
 import java.util.List;
 
@@ -54,7 +54,7 @@ public class ListenerFactory {
                 .build();
     }
 
-    public OnTabSelectedListenerForSwitchingSongList create(List<SongList> appearanceLists){
+    public OnTabSelectedListenerForSwitchingSongList create(List<SongListWithSongs> appearanceLists){
         return OnTabSelectedListenerForSwitchingSongList.builder()
                 .appearanceLists(appearanceLists)
                 .displayService(displayService)
